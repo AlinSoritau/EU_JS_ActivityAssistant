@@ -41,7 +41,9 @@ app.post('/sum', (req: Request<{} , {}, NumbersDto>, res: Response) => {
 });
 
 app.get('/users', (req: Request, res: Response) => {
-    // TODO implement this
+    const usersData = fs.readFileSync(usersFilePath, 'utf-8');
+    const users = usersData.trim().split('\n').map(line => JSON.parse(line));
+    res.json(users);
 });
 
 app.post('/users', (req: Request<{}, {}, UserDTO>, res: Response) => {
