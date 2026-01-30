@@ -1,0 +1,7 @@
+General:
+- add constants for DB names in a file
+
+User:
+- validate data before inserting into DB
+- send email for user creation validation
+- send email for user deletion validation
