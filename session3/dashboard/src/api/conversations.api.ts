@@ -2,8 +2,8 @@ import type { Conversation } from '../types/conversation.types'
 import axiosClient from './axiosClient'
 
 // get conversations
-export async function getConversaiton(): Promise<Conversation[]> {
-    const response = await axiosClient.get('/cars')
+export async function getConversaitons(): Promise<Conversation[]> {
+    const response = await axiosClient.get('/conversation')
 
     return response.data
 }

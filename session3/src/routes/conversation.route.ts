@@ -10,6 +10,11 @@ router.post('/', async (req: Request, res: Response) => {
     res.send(data)
 })
 
+router.get('/', async (req: Request, res: Response) => {
+    const data = await conversationService.getConversations()
+    res.send(data)
+})
+
 router.delete('/', async (req: Request, res: Response) => {
     const data = await conversationService.deleteConversation(req.query.conversation_id as string)
     res.send(data)
