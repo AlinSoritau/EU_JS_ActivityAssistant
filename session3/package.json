@@ -3,7 +3,8 @@
     "@supabase/supabase-js": "^2.93.3",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "openai": "^6.19.0"
   },
   "name": "session3",
   "version": "1.0.0",

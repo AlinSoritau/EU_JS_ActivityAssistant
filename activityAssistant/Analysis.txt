@@ -1,0 +1,45 @@
+Ce face aplicatia?
+    Sugereaza activitati in functie de profilul utlizatorului, tinand cont de locatie, vreme etc.
+
+Pentru cine?
+    Orice user care se inregistreaza si completeaza un profil de user.
+
+3 features max
+    Register - crate user
+    User profile - configurarea contului de utilizator -> multiple intrebari despre user (varsta, nivel de fitness, pasiuni si interese, activitati preferate, ranking pentru activitati)
+    User calendar - optional -> in cazul in care user-ul nu a avut activitati recent, aplicatia sa sugereze diverse activitati daca programul user-ului permite
+
+1 AI feature
+    Sugestia de activitati in functie de profilul userului si alti parametrii (time of day, weather, location etc.). Sugestia de activitati care nu au fost configurate, daca se potrivesc cu profilul userului
+
+Data structure pentru cele 3 features
+    user - email, name
+    user profile
+        age
+        fitnessLevel
+        interests[
+            {
+                Name: "coocking",
+                HowOften: "4", // times per week
+                UserRanking: 1 // ranked at profile configuration
+            }
+            {
+                Name: "singing",
+                HowOften: "1",
+                UserRanking: 4
+            }
+            {
+                Name: "running",
+                HowOften: "2",
+                UserRanking: 3
+            }
+            {
+                Name: "cycling"
+                HowOften: "3",
+                UserRanking: 2
+            }
+        ]
+
+Optional: Nice-to-have, Idei pentru viitor
+    Intagrare cu alti useri -> pentru a sugera activitati comune
+    Identificare de schimbari ale paternului pentru user? pentru reconfigurare sau recomandari (exemplu: user-ul nu a facut de mult timp o activitate care avea rank mare)

@@ -1,0 +1,10 @@
+Adăugați:
+POST /api/ai
+Idei:
+generare text
+sumar
+recomandări
+scor
+sugestii
+Regulă: AI = 1 feature, nu toată aplicația
+Optional: Streaming fake typing,  Multiple outputs(cu număr de opțiuni)
