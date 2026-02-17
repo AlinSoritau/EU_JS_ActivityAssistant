@@ -1,23 +1,19 @@
 import './App.css'
 import ProfileConfigurationPage from './pages/ProfileConfigurationPage'
 import UserRegistrationPage from './pages/UserRegistrationPage'
-import { Routes, Route, Link } from 'react-router-dom'
+import LoginPage from './pages/LoginPage'
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
 
 function App() {
 
   return (
-    
-<div>
-      <nav>
-        <Link to="/">UserRegistrationPage</Link>
-      </nav>
-
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<UserRegistrationPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<UserRegistrationPage />} />
         <Route path="/configuration" element={<ProfileConfigurationPage />} />
       </Routes>
-    </div>
-
+    </BrowserRouter>
   )
 }
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { registerUser } from '../api/userRegistration.api'
+import { registerUser } from '../api/userManagement.api'
 import { useNavigate } from 'react-router-dom'
 
 function UserRegistrationForm() {
@@ -18,7 +18,7 @@ function UserRegistrationForm() {
                 //redirect to configuration page
                 (response) => {
                     console.log("User registered successfully:", response)
-                    navigate("/configuration")
+                    navigate("/login")
                 }
             )
         }

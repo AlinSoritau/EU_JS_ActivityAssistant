@@ -1,7 +1,7 @@
 import UserRegistrationForm from "../components/UserRegistrationForm"
 
 const createUser = async () => {
-    console.log("Creating user...")
+    console.log("Configuring user settings...")
 }
 
 function UserRegistrationPage() {
