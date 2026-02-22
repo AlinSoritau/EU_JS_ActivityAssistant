@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 function ProfileConfigurationForm() {
+    debugger
     const [userName, setUserName] = useState('')
     const [userEmail, setUserEmail] = useState('')
     const [userPassword, setUserPassword] = useState('')

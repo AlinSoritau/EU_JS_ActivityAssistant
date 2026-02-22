@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { loginUser } from '../api/userManagement.api'
+import { loginUser } from '../api/auth.api'
 import { useNavigate } from 'react-router-dom'
 
 function LoginForm() {
@@ -12,7 +12,7 @@ function LoginForm() {
         event.preventDefault()
         try {
             console.log("Submitting user login form...")
-            loginUser({ username: userName, password: userPassword }).then(
+            await loginUser({ username: userName, password: userPassword }).then(
                 //redirect to configuration page
                 (response) => {
                     console.log("User logged in successfully:", response)
@@ -20,11 +20,17 @@ function LoginForm() {
                 }
             )
         }
-        catch (error) {
-            console.log("Error submitting user registration form", error)
+        catch (error : any) {
+            console.log("Error submitting user login form", error)
+            if (error.status === 401) {
+                alert("Invalid username or password. Please try again.")
+            }
+            else {
+                alert(`Login Error: ${error?.message}`)
+            }
         }
         finally {
-            console.log("User registration form submission complete")
+            console.log("User login form submission complete")
         }
     }
 
@@ -56,7 +62,7 @@ function LoginForm() {
                 </tr>
                 <tr>
                     <td>
-                        <button type="submit">Register</button>
+                        <button type="button" onClick={() => navigate("/register")}>Register</button>
                     </td>
                 </tr>
             </table>

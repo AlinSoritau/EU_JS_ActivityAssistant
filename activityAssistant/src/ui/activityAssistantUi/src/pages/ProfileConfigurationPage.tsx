@@ -1,9 +1,8 @@
 import ProfileConfigurationForm from "../components/ProfileConfigurationForm"
 
 function ProfileConfigurationPage() {
+    debugger
     return <div>
-            <h1>Dashboard</h1>
-            <p>Un tablou de bord</p>
 
             {
                 [

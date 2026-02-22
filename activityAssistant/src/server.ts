@@ -1,8 +1,7 @@
 import express from "express"
-import { createClient } from "@supabase/supabase-js"
 import cors from "cors"
 import dotenv from "dotenv"
-import user from "./routes/user.route"
+import { authRouter, userRouter } from "./routes"
 
 dotenv.config()
 
@@ -12,7 +11,8 @@ app.use(express.json())
 
 const PORT = process.env.PORT
 
-app.use("/user", user)
+app.use("/user", userRouter)
+app.use("/auth", authRouter)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)

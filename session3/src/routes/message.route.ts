@@ -27,4 +27,16 @@ router.post('/ai', async (req: Request<{}, {}, CreateMessageUsingAiDTO>, res: Re
     res.status(201).send(data)
 })
 
+router.post('/embedding', async (req: Request, res: Response) => {
+    const { text } = req.body
+    const data = await conversationService.generateEmbeddings(text)
+    res.status(201).send(data)
+})
+
+router.post('/cosineSimilarity', async (req: Request, res: Response) => {
+    const { text1, text2 } = req.body
+    const similarity = await conversationService.cosineSimilarity(text1, text2)
+    res.status(201).send({ similarity })
+})
+
 export default router

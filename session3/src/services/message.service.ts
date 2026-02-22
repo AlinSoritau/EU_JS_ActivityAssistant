@@ -2,6 +2,7 @@ import OpenAI from "openai";
 import {supabase } from "../lib/supabase";
 import { CreateMessageDTO, MessageDTO } from "../types/messageDTO";
 import { CreateMessageUsingAiDTO } from "../types/messageUsingAiDTO";
+import { response } from "express";
 
 export class MessageService {
     async createMessageUsingAI(message: CreateMessageUsingAiDTO) : Promise<any> {
@@ -102,5 +103,36 @@ export class MessageService {
         }
 
         return { success: true };
+    }
+
+    async generateEmbeddings(text: string) {
+        const aiClient = new OpenAI({
+            apiKey: process.env.OPENAI_KEY
+        })
+        
+        const response = await aiClient.embeddings.create({
+            model: 'text-embedding-3-small',
+            input: text,
+      });
+
+        return response.data[0].embedding;
+    }
+
+    async cosineSimilarity(text1: string, text2: string) {
+        const embedding1 = await this.generateEmbeddings(text1);
+        const embedding2 = await this.generateEmbeddings(text2);
+
+        let dotProduct = 0;
+        let normA = 0;
+        let normB = 0;
+
+        for (let i = 0; i < embedding1.length; i++) {
+            dotProduct += embedding1[i] * embedding2[i];
+            normA += Math.pow(embedding1[i], 2);
+            normB += Math.pow(embedding2[i], 2);
+        }
+
+        const similarity = dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+        return similarity;
     }
 }

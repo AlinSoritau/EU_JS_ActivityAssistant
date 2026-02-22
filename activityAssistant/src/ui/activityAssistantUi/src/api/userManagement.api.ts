@@ -10,15 +10,3 @@ export async function registerUser(userData: RegisterUserObject) {
         throw error
     }
 }
-
-export async function loginUser(userData: RegisterUserObject) {
-    try {
-        debugger
-        const response = await axiosClient.post('/user/login', userData)
-        return response.data
-    } catch (error) {
-        debugger
-        console.error('Error logging in user:', error)
-        throw error
-    }
-}
