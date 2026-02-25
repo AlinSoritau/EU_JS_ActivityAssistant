@@ -8,7 +8,8 @@ export class MessageService {
     async createMessageUsingAI(message: CreateMessageUsingAiDTO) : Promise<any> {
         
         const aiClient = new OpenAI({
-            apiKey: process.env.OPENAI_KEY
+            apiKey: process.env.OPENAI_KEY,
+            baseURL: process.env.OPENAI_BASE_URL
         })
         console.log(aiClient.requestAPIList)
 
@@ -28,7 +29,7 @@ export class MessageService {
         `
 
         const response = await aiClient.chat.completions.create({
-            model: "gpt-4o-mini",
+            model: "gemini-2.5-flash-lite",
             messages: [{ role: "user", content: prompt ?? "" }]
         })
 
@@ -107,11 +108,12 @@ export class MessageService {
 
     async generateEmbeddings(text: string) {
         const aiClient = new OpenAI({
-            apiKey: process.env.OPENAI_KEY
+            apiKey: process.env.OPENAI_KEY,
+            baseURL: process.env.OPENAI_BASE_URL
         })
         
         const response = await aiClient.embeddings.create({
-            model: 'text-embedding-3-small',
+            model: 'gemini-embedding-001',
             input: text,
       });
 

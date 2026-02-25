@@ -5,12 +5,15 @@ export interface FileUploadDTO {
     text: string
 }
 
-export interface DocumentDTO {
-    id: number
+export interface InsertDocumentDTO {
     user_id: number
     title: string
     content: string
     metadata: string | null
     created_at: string | null
     updated_at: string | null
+}
+
+export interface DocumentDTO extends InsertDocumentDTO {
+    id: BigInt
 }

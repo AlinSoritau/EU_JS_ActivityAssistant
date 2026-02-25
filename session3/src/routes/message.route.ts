@@ -1,7 +1,6 @@
 import { Router, Request, Response } from "express";
 import { MessageService } from "../services/message.service"
 import { CreateMessageUsingAiDTO } from "../types/messageUsingAiDTO";
-import { OpenAI } from "openai/client";
 
 const router = Router()
 

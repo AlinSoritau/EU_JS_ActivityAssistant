@@ -1,4 +1,4 @@
-function chunkText(text, chunkSize = 500, overlap = 50) {
+function chunkText(text: string, chunkSize = 500, overlap = 50) : string[] {
   const chunks = [];
   
   // Remove extra whitespace
@@ -33,3 +33,5 @@ function chunkText(text, chunkSize = 500, overlap = 50) {
   
   return chunks;
 }
+
+export { chunkText };
