@@ -8,7 +8,7 @@ function LoginForm() {
 
     const navigate = useNavigate()
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event : any) => {
         event.preventDefault()
         try {
             console.log("Submitting user login form...")
@@ -36,37 +36,17 @@ function LoginForm() {
 
     return (
         <div>
-        <form onSubmit={handleSubmit} >
-            <h3 style={{color: "blue"}}>Create your user</h3>
-            <table>
-                <tr>
-                    <td>
-                        <text>User name:</text>
-                    </td>
-                    <td>
-                        <input type="text" name="userName" value={userName} onChange={(e) => setUserName(e.target.value)}></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <text>Password:</text>
-                    </td>
-                    <td>
-                        <input type="password" name="userPassword" value={userPassword} onChange={(e) => setUserPassword(e.target.value)}></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="submit">Login</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="button" onClick={() => navigate("/register")}>Register</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
+            <form action="#" onSubmit={handleSubmit}>
+                <div className="input-group">
+                    <label htmlFor="email">Email Address</label>
+                    <input type="text" id="email" placeholder="name@company.com" required onChange={(e) => setUserName(e.target.value)} />
+                </div>
+                <div className="input-group">
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required onChange={(e) => setUserPassword(e.target.value)} />
+                </div>
+                <button type="submit" className="btn-login">Sign In</button>
+            </form>
         </div>
     )
 }

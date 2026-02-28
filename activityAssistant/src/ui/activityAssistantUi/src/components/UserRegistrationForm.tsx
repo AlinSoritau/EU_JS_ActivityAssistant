@@ -9,7 +9,7 @@ function UserRegistrationForm() {
 
     const navigate = useNavigate()
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event : any) => {
         event.preventDefault()
         try {
             console.log("Submitting user registration form...")
@@ -32,40 +32,22 @@ function UserRegistrationForm() {
 
     return (
         <div>
-        <form onSubmit={handleSubmit} >
-            <h3 style={{color: "blue"}}>Create your user</h3>
-            <table>
-                <tr>
-                    <td>
-                        <text>User name:</text>
-                    </td>
-                    <td>
-                        <input type="text" name="userName" value={userName} onChange={(e) => setUserName(e.target.value)}></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <text>Email:</text>
-                    </td>
-                    <td>
-                        <input type="text" name="userEmail" value={userEmail} onChange={(e) => setUserEmail(e.target.value)}></input>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                        <text>Password:</text>
-                    </td>
-                    <td>
-                        <input type="password" name="userPassword" value={userPassword} onChange={(e) => setUserPassword(e.target.value)}></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="submit">Create account</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
+            <form onSubmit={handleSubmit} >
+                <h2>Create your user</h2>
+                <div className="input-group">
+                    <label htmlFor="username">Username</label>
+                    <input type="text" id="username" placeholder="Your username" required onChange={(e) => setUserName(e.target.value)} />
+                </div>
+                <div className="input-group">
+                    <label htmlFor="email">Email Address</label>
+                    <input type="email" id="email" placeholder="name@company.com" required onChange={(e) => setUserEmail(e.target.value)} />
+                </div>
+                <div className="input-group">
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required onChange={(e) => setUserPassword(e.target.value)} />
+                </div>
+                <button type="submit" className="btn-login">Create Account</button>
+            </form>
         </div>
     )
 }

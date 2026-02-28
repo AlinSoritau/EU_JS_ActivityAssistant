@@ -5,16 +5,10 @@ const createUser = async () => {
 }
 
 function UserRegistrationPage() {
-    return <div>
-            <h1>Dashboard</h1>
-            <p>Un tablou de bord</p>
-
-            {
-                [
-                    <UserRegistrationForm onSubmit={createUser}/>
-                ]
-            }
-
+    return<div>
+            <h2>User Registration</h2>
+            <UserRegistrationForm onSubmit={createUser}/>
+            <a href="/login">Already have an account? Log in here.</a>
         </div>
 }
 
