@@ -10,26 +10,37 @@ router.post('/register', async (req: Request, res: Response) => {
         await userService.createUser(req.body)
         res.json({ message: "User registered successfully" })
     } catch (error) {
-        res.status(500).json({ error: (error as Error).message })
+        res.status(500).json({ message: error})
     }
 })
 
-router.put('/:username', async (req: Request, res: Response) => {
+router.put('/:email', async (req: Request, res: Response) => {
     try {
         authenticateToken(req, res, () => {})
-        await userService.updateUser(req.params.username as string, req.body)
+        await userService.updateUser(req.params.email as string, req.body)
         res.json({ message: "User updated successfully" })
     } catch (error) {
-        res.status(500).json({ error: (error as Error).message })
+        res.status(500).json({ message: error})
     }
 })
 
-router.delete('/:username', async (req: Request, res: Response) => {
+router.get('/:email', async (req: Request, res: Response) => {
     try {
-        await userService.deleteUser(req.params.username as string)
+        authenticateToken(req, res, () => {})
+        const user = await userService.getUser(req.params.email as string)
+        res.json(user)
+    } catch (error) {
+        res.status(500).json({ message: error})
+    }
+})
+
+router.delete('/:email', async (req: Request, res: Response) => {
+    try {
+        authenticateToken(req, res, () => {})
+        await userService.deleteUser(req.params.email as string)
         res.json({ message: "User deleted successfully" })
     } catch (error) {
-        res.status(500).json({ error: (error as Error).message })
+        res.status(500).json({ message: error})
     }
 })
 

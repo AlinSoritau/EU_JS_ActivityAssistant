@@ -1,8 +1,9 @@
-export type User = {
-    username: string
+export type MinimalUser = {
+    email: string
     password: string
 }
 
-export type RegisterUserObject = User & {
-    email: string
+export type UserObject = MinimalUser & {
+    username: string,
+    userId?: string
 }

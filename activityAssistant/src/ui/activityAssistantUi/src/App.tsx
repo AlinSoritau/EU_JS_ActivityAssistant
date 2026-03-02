@@ -7,7 +7,6 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>

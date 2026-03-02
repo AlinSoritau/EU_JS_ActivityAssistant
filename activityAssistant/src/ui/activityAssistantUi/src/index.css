@@ -31,7 +31,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, rgb(102, 126, 234) 0%, rgb(118, 75, 162) 100%);
     overflow: hidden;
 }
 
@@ -87,7 +87,7 @@ input:focus {
     padding: 12px;
     border: none;
     border-radius: 10px;
-    background: #764ba2;
+    background: rgb(118, 75, 162);
     color: greenyellow;
     font-size: 1rem;
     font-weight: bold;
@@ -97,7 +97,44 @@ input:focus {
 }
 
 .btn-login:hover {
-    background: #5a3a7e;
+    background: rgb(90, 58, 126);
+}
+
+.btn-logout {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(100, 100, 100, 0.801);
+    color: rgb(201, 201, 201);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 48px;
+    transition: background 0.3s ease;
+}
+
+.btn-logout:hover {
+    background: rgba(80, 80, 80, 1);
+    color: rgba(255, 255, 255, 0.9)
+}
+
+.btn-generic {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(59, 115, 153, 0.801);
+    color: rgb(233, 233, 233);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background 0.3s ease;
+}
+
+.btn-generic:hover {
+    background: rgba(80, 80, 80, 1);
 }
 
 .footer-links {
@@ -117,13 +154,13 @@ input:focus {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: rgb(33, 53, 71);
+    background-color: rgb(255, 255, 255);
   }
   a:hover {
-    color: #747bff;
+    color: rgb(116, 123, 255);
   }
   button {
-    background-color: #f9f9f9;
+    background-color: rgb(249, 249, 249);
   }
 }

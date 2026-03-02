@@ -15,13 +15,22 @@ export class UserService {
         return { message: "User created successfully." }
     }
 
-    async updateUser(username: string, updatedData: Partial<UserDTO>) {
-        console.log("Updating user:", username, "with data:", updatedData)
+    async updateUser(email: string, updatedData: Partial<UserDTO>) {
+        console.log("Updating user:", email, "with data:", updatedData)
         // TODO add implementation
     }
 
-    async deleteUser(username: string) {
-        const { error } = await supabase.from('user').delete().eq('username', username)
+    async getUser(email: string) {
+        const { data: user, error } = await supabase.from('user').select('*').eq('email', email).single()
+        if (error) {
+            console.error("Error fetching user:", error.message)
+            throw new Error(error.message)
+        }
+        return user
+    }
+
+    async deleteUser(email: string) {
+        const { error } = await supabase.from('user').delete().eq('email', email)
         if (error) {
             console.error("Error deleting user:", error.message)
             throw new Error(error.message)

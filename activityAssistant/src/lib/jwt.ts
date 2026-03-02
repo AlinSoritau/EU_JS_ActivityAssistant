@@ -4,7 +4,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'jwt_debug_key'
 
 interface UserPayload {
     id: number;
-    username: string;
+    email: string;
 }
 
 interface TokenPayload {
@@ -15,7 +15,7 @@ interface TokenPayload {
 export function generateToken(user: UserPayload): string {
     const payload: TokenPayload = {
         userId: user.id,
-        email: user.username
+        email: user.email
     };
 
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
