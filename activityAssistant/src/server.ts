@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
-import { authRouter, userRouter } from "./routes"
+import { aiConversationRouter, authRouter, userRouter } from "./routes"
 
 dotenv.config()
 
@@ -13,6 +13,7 @@ const PORT = process.env.PORT
 
 app.use("/user", userRouter)
 app.use("/auth", authRouter)
+app.use("/ai", aiConversationRouter)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)

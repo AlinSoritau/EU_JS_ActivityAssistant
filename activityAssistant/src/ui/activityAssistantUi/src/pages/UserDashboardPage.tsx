@@ -26,7 +26,7 @@ function UserDashboardPage() {
             <div>
                 <p>What would you like to do today?</p>
                 < input type="button" value="Configure my profile" className="btn-generic" onClick={() => window.location.href = "/configuration"} />
-                < input type="button" value="Message the AI Assistant" className="btn-generic" onClick={() => window.location.href = "/aiAssistant"} />
+                < input type="button" value="Message the AI Assistant" className="btn-generic" onClick={() => window.location.href = "/ai-assistant"} />
             </div>
 
             <input type="button" value="Logout" className="btn-logout" onClick={() => {                

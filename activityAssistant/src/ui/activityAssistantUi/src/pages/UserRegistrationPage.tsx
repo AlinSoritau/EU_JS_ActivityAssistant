@@ -8,7 +8,7 @@ function UserRegistrationPage() {
     return<div>
             <h2>User Registration</h2>
             <UserRegistrationForm onSubmit={createUser}/>
-            <a href="/login">Already have an account? Log in here.</a>
+            <a href="/login" style={{ color: "darkblue" }}>Already have an account? Log in here.</a>
         </div>
 }
 

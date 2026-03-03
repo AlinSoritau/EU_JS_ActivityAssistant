@@ -1,6 +1,18 @@
 General:
 - add constants for DB names in a file
 
+AI
+- add necessary classes (API)
+    - conversationDTO
+    - messageDTO
+    - prompting
+- add necessary services (API)
+    - conversation CRUD
+    - messages CRUD
+- add AiAssistant page (UI)
+    - add conversations list (when an existing conversation is selected, send the existing messages as RAG)
+    - add message form
+
 User:
 - validate data before inserting into DB
 - send email for user creation validation
