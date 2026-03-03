@@ -1,7 +1,6 @@
 import ProfileConfigurationForm from "../components/ProfileConfigurationForm"
 
 function ProfileConfigurationPage() {
-    debugger
     return <div>
 
             {

@@ -1,18 +1,33 @@
-import { OpenAI } from "openai";
+import { ConversationDTO } from "../types/aiMessaging/conversationDTO";
+import { supabase } from "../lib/supabase";
 
 export class AiConversationService {
-    aiClient = new OpenAI({
-        apiKey: process.env.OPENAI_API_KEY,
-        baseURL: process.env.OPENAI_API_BASE_URL
-    })
 
-    async sendSimpleMessage(message: string) : Promise<any> {
-        const prompt = `You are a helpful assistant. Respond to the following message: ${message}`;
+    async getConversationsByUserId(userId: string) : Promise<ConversationDTO[]> {
+        const { data, error } = await supabase.from("conversation").select("*").eq("userId", userId)
         
-        const aiResponse = await this.aiClient.chat.completions.create({
-            model: 'gemini-2.5-flash-lite',
-            messages: [{ role: 'user', content: prompt ?? "" }],
-        });
-        return { message, response: aiResponse.choices[0]?.message?.content };
+        if (error) {
+            throw error
+        }
+
+        return data;
+    }
+    
+    async createNewConversation(conversation: ConversationDTO) : Promise<string> {
+        const { data, error } = await supabase.from("conversation").insert(conversation).select("conversationId").single()
+        
+        if (error) {
+            throw error
+        }
+        
+        return data?.conversationId
+    }
+
+    async deleteConversation(conversationId: string) {
+        const { error } = await supabase.from("conversation").delete().eq("conversationId", conversationId)
+        if (error) {
+            throw error
+        }
+        return { success: true }
     }
 }
