@@ -26,19 +26,34 @@ function AiConversationListPage() {
             <button className="btn-generic" onClick={() => window.location.href = '/ai-messaging'}>
                 New Conversation
             </button>
-            <div style={{ height: '400px', overflowY: 'auto', border: '1px solid #ccc', marginTop: '16px' }}>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
+            <div style={{ height: '400px', overflowY: 'auto', border: '1px solid #ddd', borderRadius: '8px', marginTop: '16px', backgroundColor: '#f9f9f9' }}>
+                <ul style={{ listStyle: 'none', padding: '8px', margin: 0 }}>
                     {conversations.map((conversation) => (
                         <li 
                             key={conversation.conversationId} 
-                            style={{ padding: '8px', cursor: 'pointer', borderBottom: '1px solid #eee' }}
+                            style={{ 
+                                padding: '6px', 
+                                cursor: 'pointer', 
+                                borderRadius: '6px',
+                                marginBottom: '8px',
+                                backgroundColor: '#7bdada',
+                                color: 'black',
+                                border: '1px solid #eee',
+                                transition: 'all 0.2s ease',
+                                fontSize: '14px'
+                            }}
                             onClick={() => window.location.href = `/ai-messaging?conversationId=${conversation.conversationId}`}
+                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5bafaf'}
+                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#7bdada'}
                         >
                             {conversation.topic || 'Untitled Conversation'}
                         </li>
                     ))}
                 </ul>
             </div>
+            <button className="btn-generic" onClick={() => window.location.href = '/'} style={{ marginTop: '16px' }}>
+                Back to Dashboard
+            </button>
         </div>
 }
 

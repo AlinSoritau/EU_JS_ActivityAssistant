@@ -2,6 +2,6 @@ export interface MessageDTO {
     id?: number
     conversationId: string
     isUserMessage: boolean
-    text: string
+    message: string
     createdAt?: string
 }

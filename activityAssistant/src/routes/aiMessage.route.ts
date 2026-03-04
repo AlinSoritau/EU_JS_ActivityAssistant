@@ -21,11 +21,23 @@ router.post('/', async (req: Request, res: Response) => {
 router.post('/simpleMessage', async (req: Request, res: Response) => {
     try {
         authenticateToken(req, res, async () => {})
-        const messages = await aiMessageService.sendSimpleMessage(req.body.text)
+        const messages = await aiMessageService.sendSimpleMessage(req.body.message)
         res.json(messages)
     } catch (error) {
         console.error('Error sending simple message:', error)
         res.status(500).json({ error: 'Failed to send simple message' })
+    }
+})
+
+router.get('/', async (req: Request, res: Response) => {
+    try {
+        authenticateToken(req, res, async () => {})
+        const conversationId = req.query.conversationId
+        const messages = await aiMessageService.getConversationMessages(conversationId as string)
+        res.json(messages)
+    } catch (error) {
+        console.error('Error fetching messages by conversation ID:', error)
+        res.status(500).json({ error: 'Failed to fetch messages by conversation ID' })
     }
 })
 

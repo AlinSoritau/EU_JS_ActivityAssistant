@@ -1,36 +1,49 @@
-import { useState } from 'react'
-import { sendMessage } from '../api/message.api'
+import { useState, useEffect } from 'react'
+import { getConversationMessages, sendMessage } from '../api/message.api'
 import { createConversation } from '../api/conversation.api'
 import type { Message } from '../types/message.types'
 
-function AiMessagingPage({ conversationId }: { conversationId: string }) {
+function AiMessagingPage() {
     const [messages, setMessages] = useState<Message[]>([])
     const [input, setInput] = useState('')
+
+    const conversationId = new URLSearchParams(window.location.search).get('conversationId')
+    useEffect(() => {
+        if (conversationId) {
+            sessionStorage.setItem('currentConversationId', conversationId)
+            const fetchMessages = async () => {
+                try {
+                    const data = await getConversationMessages(conversationId)
+                    setMessages(data)
+                } catch (error) {
+                    console.error('Error fetching messages for conversation:', error)
+                }
+            }
+            fetchMessages()
+        }
+    }, [conversationId])
 
     const handleSendMessage = async () => {
         if (!input.trim()) return
 
+        let currentConversationId = sessionStorage.getItem('currentConversationId') || ''
         const userMessage: Message = {
-            text: input,
-            conversationId: ""
+            message: input,
+            conversationId: currentConversationId,
+            isUserMessage: true
         }
 
-        if (!conversationId) { 
+        if (!currentConversationId) { 
             console.debug("No conversation ID provided, creating new conversation")
-            await createConversation({ userId: localStorage.getItem('userId') || '', topic: input })
-                .then(data => {
-                    console.debug("Conversation created with ID:", data)
-                    userMessage.conversationId = data})
-                .catch(error => {
-                    console.error('Error creating conversation:', error)
-                })
+            const newConversationId = await createConversation({ userId: localStorage.getItem('userId') || '', topic: input })
+            userMessage.conversationId = newConversationId
+            sessionStorage.setItem('currentConversationId', newConversationId)
         }
 
         console.log("userMessage", userMessage)
         setMessages([...messages, userMessage])
         setInput('')
 
-        // Simulate LLM response
         setTimeout(async () => {
             const llmMessage = await sendMessage(userMessage)
             setMessages(prev => [...prev, llmMessage])
@@ -52,7 +65,7 @@ function AiMessagingPage({ conversationId }: { conversationId: string }) {
                             backgroundColor: msg.isUserMessage ? '#007bff' : '#e9ecef',
                             color: msg.isUserMessage ? 'white' : 'black'
                         }}>
-                            {msg.text}
+                            {msg.message}
                         </div>
                     </div>
                 ))}
@@ -64,17 +77,20 @@ function AiMessagingPage({ conversationId }: { conversationId: string }) {
                     type="text"
                     value={input}
                     onChange={e => setInput(e.target.value)}
-                    onKeyPress={e => e.key === 'Enter' && handleSendMessage()}
+                    onKeyDown={e => e.key === 'Enter' && handleSendMessage()}
                     placeholder="Type your message..."
                     style={{ flex: 1, padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
                 />
                 <button
+                    className='btn-send'
                     onClick={handleSendMessage}
-                    style={{ padding: '10px 20px', borderRadius: '4px', border: 'none', backgroundColor: '#007bff', color: 'white', cursor: 'pointer' }}
                 >
                     Send
                 </button>
             </div>
+            <button className="btn-generic" onClick={() => window.location.href = '/ai-assistant'} >
+                Back to Conversations
+            </button>
         </div>
     )
 }

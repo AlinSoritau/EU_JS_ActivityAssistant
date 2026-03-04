@@ -10,3 +10,13 @@ export async function sendMessage(messageData: Message) {
         throw error
     }
 }
+
+export async function getConversationMessages(conversationId: string) {
+    try {
+        const response = await axiosClient.get(`/ai/messages`, { params: { conversationId } })
+        return response.data
+    } catch (error) {
+        console.error('Error fetching conversation messages:', error)
+        throw error
+    }
+}

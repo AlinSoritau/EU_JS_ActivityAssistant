@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<ProtectedRoute><UserDashboardPage /></ProtectedRoute>} />
         <Route path="/ai-assistant" element={<ProtectedRoute><AiConversationListPage /></ProtectedRoute>} />
-        <Route path="/ai-messaging" element={<ProtectedRoute><AiMessagingPage conversationId={''} /></ProtectedRoute>} />
+        <Route path="/ai-messaging" element={<ProtectedRoute><AiMessagingPage/></ProtectedRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<UserRegistrationPage />} />
         <Route path="/configuration" element={<ProtectedRoute><ProfileConfigurationPage /></ProtectedRoute>} />

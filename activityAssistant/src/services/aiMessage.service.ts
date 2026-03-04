@@ -1,9 +1,10 @@
 import { OpenAI } from "openai";
 import { supabase } from "../lib/supabase";
+import { MessageDTO } from "../types/aiMessaging/messageDTO";
 
 export class AiMessageService {
     aiClient = new OpenAI({
-        apiKey: process.env.OPENAI_API_KEY,
+        // apiKey: process.env.OPENAI_API_KEY,
         baseURL: process.env.OPENAI_API_BASE_URL
     })
 
@@ -11,14 +12,15 @@ export class AiMessageService {
         const prompt = `You are a helpful assistant. Respond to the following message: ${message}`
         
         const aiResponse = await this.aiClient.chat.completions.create({
-            model: 'gemini-2.5-flash-lite',
+            // model: 'gemini-2.5-flash-lite',
+            model: 'qwen/qwen3-vl-4b',
             messages: [{ role: 'user', content: prompt ?? "" }],
         });
         return { message, response: aiResponse.choices[0]?.message?.content }
     }
 
     async sendMessageWithConversationContext(conversationId: string, text: string) : Promise<any> {
-        const conversationMessages = await supabase.from("messages").select("text, isUserMessage").eq("conversationId", conversationId).order("messageId", { ascending: true })
+        const conversationMessages = await supabase.from("messages").select("message, isUserMessage").eq("conversationId", conversationId).order("messageId", { ascending: true })
 
         if (conversationMessages.error) {
             throw conversationMessages.error
@@ -38,14 +40,14 @@ export class AiMessageService {
         // Save user message to database
         const { error: userMessageError } = await supabase.from("messages").insert({
             conversationId: conversationId,
-            text: text,
+            message: text,
             isUserMessage: true
         });
 
         // Save AI response to database
         const { error: aiMessageError } = await supabase.from("messages").insert({
             conversationId: conversationId,
-            text: response.choices[0]?.message?.content ?? "",
+            message: response.choices[0]?.message?.content ?? "",
             isUserMessage: false
         });
 
@@ -57,7 +59,21 @@ export class AiMessageService {
             console.error('Error saving AI message:', aiMessageError)
             throw aiMessageError
         }
+        
+        return { 
+                message: response.choices[0]?.message?.content ?? "",
+                conversationId: conversationId,
+                isUserMessage: false
+        }
+    }
 
-        return { response: response.choices[0]?.message?.content }
+    async getConversationMessages(conversationId: string) : Promise<MessageDTO[]> {
+        const { data, error } = await supabase.from("messages").select("*").eq("conversationId", conversationId).order("messageId", { ascending: true })
+        if (error) {
+            console.error('Error fetching conversation messages:', error)
+            throw error
+        }
+        
+        return data as MessageDTO[]
     }
 }
